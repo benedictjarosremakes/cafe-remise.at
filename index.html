@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cafe Remise | Bludenz</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Inter:wght@400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+<style>
+:root {
+  /* Colours */
+  --color-bg: #F9F8F6;
+  --color-surface: #FFFFFF;
+  --color-text: #2A2C2E;
+  --color-text-muted: #6B7278;
+  --color-accent: #8D8E42;
+  --color-accent-light: #9fa14e;
+  --color-highlight: #1A6B8C;
+  
+  --color-footer-bg: #1C1917;
+  --color-footer-text: #F9F8F6;
+  --color-footer-muted: #A8A29E;
+
+  /* Typography */
+  --font-heading: 'Lora', serif;
+  --font-body: 'Inter', sans-serif;
+  --font-accent: 'Caveat', cursive;
+
+  /* Type Scale */
+  --text-xs: clamp(0.75rem, 1.5vw, 0.875rem);
+  --text-sm: clamp(0.875rem, 1.8vw, 1rem);
+  --text-base: clamp(1rem, 2vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 2.5vw, 1.375rem);
+  --text-xl: clamp(1.375rem, 3vw, 1.75rem);
+  --text-2xl: clamp(1.75rem, 4vw, 2.5rem);
+  --text-3xl: clamp(2.25rem, 5vw, 3.5rem);
+  --text-4xl: clamp(3rem, 7vw, 4.5rem);
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+  --section-padding: clamp(4rem, 10vw, 8rem);
+
+  /* Z-index */
+  --z-base: 0;
+  --z-raised: 10;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 500;
+  --z-modal: 1000;
+  --z-toast: 2000;
+  --z-max: 9000;
+}
+
+/* Reset & Base */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 100%; }
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; transition: color 0.2s ease; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+ul, ol { list-style: none; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  line-height: 1.15;
+  font-weight: 500;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+
+/* Utilities */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+}
+@media (min-width: 768px) { .container { padding: 0 var(--space-8); } }
+
+.skip-link {
+  position: absolute;
+  top: -100%; left: 0;
+  background: var(--color-accent);
+  color: var(--color-surface);
+  padding: var(--space-2) var(--space-4);
+  z-index: var(--z-max);
+  transition: top 0.2s;
+}
+.skip-link:focus { top: 0; }
+
+:focus-visible {
+  outline: 2px solid var(--color-highlight);
+  outline-offset: 2px;
+}
+
+[data-lucide] {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+  line-height: 1;
+  pointer-events: none;
+  width: 1.2em;
+  height: 1.2em;
+}
+
+.icon-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45em;
+  background-color: var(--color-accent);
+  color: var(--color-surface);
+  padding: 0.875rem 1.75rem;
+  font-weight: 500;
+  font-size: var(--text-sm);
+  letter-spacing: 0.02em;
+  border-radius: 2px;
+  position: relative;
+  z-index: var(--z-raised);
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  min-height: 44px;
+  flex-shrink: 0;
+  white-space: normal;
+  text-align: center;
+  line-height: 1.4;
+}
+.btn:hover {
+  background-color: var(--color-accent-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(141, 142, 66, 0.2);
+}
+.btn-outline {
+  background-color: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-text);
+}
+.btn-outline:hover {
+  background-color: var(--color-text);
+  color: var(--color-surface);
+  box-shadow: none;
+}
+
+/* Scroll Reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* Header & Nav */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1001;
+  background: rgba(249, 248, 246, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(42, 44, 46, 0.05);
+  transition: transform 0.3s ease;
+}
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 5rem;
+}
+.logo {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+/* Desktop Nav */
+.desktop-nav { display: none; }
+@media (min-width: 769px) {
+  .desktop-nav {
+    display: flex;
+    gap: var(--space-8);
+    align-items: center;
+  }
+  .desktop-nav a, .desktop-nav button {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-text);
+    position: relative;
+  }
+  .desktop-nav a::after, .desktop-nav button::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0;
+    width: 100%; height: 1px;
+    background: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+  .desktop-nav a:hover::after, .desktop-nav button:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+/* Mobile Nav Toggle */
+.nav-toggle {
+  position: absolute;
+  right: var(--space-4);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1002;
+  width: 44px; height: 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+@media (min-width: 769px) {
+  .nav-toggle { display: none; pointer-events: none; }
+}
+.nav-toggle span {
+  display: block;
+  width: 24px; height: 2px;
+  background-color: var(--color-text);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+/* Mobile Overlay */
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.mobile-overlay.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.mobile-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+}
+.mobile-nav a, .mobile-nav button {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  color: var(--color-text);
+  padding: 1rem;
+}
+
+/* Hero Section */
+.hero {
+  min-height: 100vh;
+  min-height: 100svh;
+  height: auto;
+  padding-top: 5rem;
+  display: flex;
+  flex-direction: column;
+}
+.hero-content {
+  flex: 0 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--space-12) var(--space-4) var(--space-12);
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+.hero-title {
+  font-size: var(--text-4xl);
+  margin-bottom: var(--space-6);
+  line-height: 1.1;
+}
+.hero-subtitle {
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-8);
+  line-height: 1.5;
+  text-wrap: balance;
+  word-wrap: break-word;
+}
+.hero-image-wrap {
+  flex: 1 1 auto;
+  min-height: 300px;
+  width: 100%;
+}
+.hero-image-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    flex-direction: row;
+    padding-top: 0;
+  }
+  .hero-content {
+    flex: 1;
+    text-align: left;
+    margin: 0;
+    padding: var(--space-24) 8vw;
+    align-items: flex-start;
+  }
+  .hero-image-wrap {
+    flex: 1;
+    height: 100vh;
+    min-height: auto;
+  }
+}
+
+/* Lunch Menu Section */
+.lunch-section {
+  padding: var(--section-padding) 0;
+  background-color: var(--color-surface);
+  position: relative;
+}
+.lunch-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-12);
+  align-items: center;
+}
+.lunch-card {
+  background: var(--color-bg);
+  padding: var(--space-8) var(--space-6);
+  border: 1px solid rgba(42, 44, 46, 0.05);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.03);
+}
+.lunch-accent-text {
+  font-family: var(--font-accent);
+  font-size: var(--text-2xl);
+  color: var(--color-highlight);
+  margin-bottom: var(--space-2);
+  display: block;
+}
+.lunch-title {
+  font-size: var(--text-3xl);
+  margin-bottom: var(--space-6);
+}
+.lunch-desc {
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-8);
+}
+.lunch-price-box {
+  border-top: 1px solid rgba(42, 44, 46, 0.1);
+  border-bottom: 1px solid rgba(42, 44, 46, 0.1);
+  padding: var(--space-6) 0;
+  margin-bottom: var(--space-8);
+}
+.lunch-price-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 500;
+  margin-bottom: var(--space-4);
+}
+.lunch-price-main span:last-child {
+  color: var(--color-accent);
+}
+.lunch-addons {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.lunch-addons li {
+  display: flex;
+  justify-content: space-between;
+}
+.lunch-image {
+  height: 400px;
+  width: 100%;
+}
+.lunch-image img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+
+@media (min-width: 1024px) {
+  .lunch-container {
+    grid-template-columns: 5fr 7fr;
+    align-items: start;
+  }
+  .lunch-card {
+    padding: var(--space-12);
+    margin-right: -4rem;
+    position: relative;
+    z-index: 2;
+    margin-top: 0;
+  }
+  .lunch-image {
+    height: 600px;
+    z-index: 1;
+  }
+}
+
+/* Gallery Section */
+.gallery-section {
+  padding: var(--section-padding) 0;
+  background-color: var(--color-bg);
+}
+.gallery-header {
+  text-align: center;
+  margin-bottom: var(--space-12);
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+.gallery-item {
+  height: 300px;
+  overflow: hidden;
+}
+.gallery-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+@media (min-width: 640px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .gallery-item { height: 350px; }
+}
+@media (min-width: 1024px) {
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .gallery-item { height: 400px; }
+}
+
+/* Footer */
+.site-footer {
+  background-color: var(--color-footer-bg);
+  color: var(--color-footer-muted);
+  padding: clamp(4rem, 8vw, 7rem) 0 2rem;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-12);
+  margin-bottom: var(--space-16);
+}
+.footer-brand h2 {
+  color: var(--color-footer-text);
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-4);
+}
+.footer-col h3 {
+  color: var(--color-footer-text);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-6);
+}
+.footer-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.footer-list li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+}
+.footer-list [data-lucide] {
+  color: var(--color-accent);
+}
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  font-size: var(--text-xs);
+  text-align: center;
+}
+.footer-legal-links {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-6);
+}
+.footer-legal-links button {
+  color: inherit;
+  font-size: inherit;
+}
+.footer-legal-links button:hover {
+  color: var(--color-footer-text);
+}
+
+@media (min-width: 768px) {
+  .footer-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .footer-bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+
+/* Modals */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.modal-overlay.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal-card {
+  background: var(--color-surface);
+  width: 100%;
+  max-width: 480px;
+  padding: var(--space-8);
+  border-radius: 4px;
+  position: relative;
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+.modal-overlay.is-active .modal-card {
+  transform: translateY(0);
+}
+.modal-close {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  color: var(--color-text-muted);
+  padding: var(--space-2);
+}
+.modal-close:hover { color: var(--color-text); }
+.modal-title {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-4);
+  padding-right: var(--space-8);
+}
+.modal-body {
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-8);
+}
+.modal-body a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Cookie Banner */
+.cookie-banner {
+  position: fixed;
+  bottom: var(--space-4);
+  left: var(--space-4);
+  right: var(--space-4);
+  z-index: var(--z-toast);
+  background: var(--color-surface);
+  padding: var(--space-6);
+  border-radius: 4px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  transform: translateY(150%);
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.cookie-banner.is-visible {
+  transform: translateY(0);
+}
+.cookie-text { font-size: var(--text-sm); }
+.cookie-actions {
+  display: flex;
+  gap: var(--space-4);
+}
+@media (min-width: 640px) {
+  .cookie-banner {
+    left: 50%; right: auto;
+    transform: translate(-50%, 150%);
+    width: 100%; max-width: 600px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .cookie-banner.is-visible {
+    transform: translate(-50%, 0);
+  }
+}
+</style>
+</head>
+<body>
+<!-- DEMO NOTICE BANNER - benedictjaros.com -->
+<style>
+#__demo_spacer{display:block;}
+#__demo_notice,#__demo_notice *{box-sizing:border-box;margin:0;padding:0;}
+#__demo_notice{
+  position:fixed;top:0;left:0;right:0;z-index:99999;
+  background:rgba(9,9,11,.97);
+  backdrop-filter:blur(14px) saturate(160%);
+  -webkit-backdrop-filter:blur(14px) saturate(160%);
+  border-bottom:1px solid rgba(255,255,255,.07);
+  font-family:system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+#__demo_inner{
+  max-width:1280px;margin:0 auto;
+  padding:0 44px 0 18px;min-height:38px;
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+}
+#__demo_dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;background:#f5c842;box-shadow:0 0 7px rgba(245,200,66,.55);}
+#__demo_label{color:#f5c842;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;flex-shrink:0;}
+#__demo_divider{color:rgba(255,255,255,.15);font-size:12px;flex-shrink:0;}
+#__demo_text{color:rgba(255,255,255,.45);font-size:11.5px;line-height:1.45;flex:1 1 160px;}
+#__demo_links{display:flex;align-items:center;gap:6px;flex-shrink:0;}
+#__demo_links a{
+  color:rgba(255,255,255,.38);font-size:11px;text-decoration:none;
+  border-bottom:1px solid rgba(255,255,255,.14);
+  transition:color .15s,border-color .15s;white-space:nowrap;
+}
+#__demo_links a:hover{color:rgba(255,255,255,.75);border-color:rgba(255,255,255,.4);}
+#__demo_link_sep{color:rgba(255,255,255,.15);font-size:10px;}
+#__demo_close{
+  position:absolute;right:0;top:0;bottom:0;width:40px;
+  background:none;border:none;cursor:pointer;
+  color:rgba(255,255,255,.28);font-size:16px;line-height:1;
+  display:flex;align-items:center;justify-content:center;
+  transition:color .15s;
+}
+#__demo_close:hover{color:rgba(255,255,255,.7);}
+@media(max-width:560px){
+  #__demo_inner{padding:7px 44px 7px 14px;gap:6px;}
+  #__demo_text{font-size:11px;flex:1 1 100%;order:3;}
+  #__demo_dot,#__demo_label{order:1;}
+  #__demo_divider{order:2;}
+  #__demo_links{order:4;}
+}
+</style>
+<div id="__demo_spacer"></div>
+<div id="__demo_notice" role="banner" aria-label="Demo notice">
+  <div id="__demo_inner">
+    <span id="__demo_dot"></span>
+    <span id="__demo_label">Demo</span>
+    <span id="__demo_divider">/</span>
+    <span id="__demo_text">Unofficial remake &mdash; not the real website. All content &amp; trademarks belong to their owners.</span>
+    <div id="__demo_links">
+      <a href="https://benedictjaros.com/impressum" target="_blank" rel="noopener noreferrer">Impressum</a>
+      <span id="__demo_link_sep">&middot;</span>
+      <a href="https://benedictjaros.com/datenschutz" target="_blank" rel="noopener noreferrer">Datenschutz</a>
+    </div>
+  </div>
+  <button id="__demo_close" aria-label="Close demo notice">&#x2715;</button>
+</div>
+<script>
+(function () {
+  var spacer = document.getElementById('__demo_spacer');
+  var b = document.getElementById('__demo_notice');
+  var x = document.getElementById('__demo_close');
+  if (!b || !spacer) return;
+  function sync() { spacer.style.height = b.offsetHeight + 'px'; }
+  function hide() {
+    b.style.display = 'none'; spacer.style.height = '0';
+    try { sessionStorage.setItem('__demo_closed', '1'); } catch (e) {}
+  }
+  try { if (sessionStorage.getItem('__demo_closed')) { b.style.display = 'none'; spacer.style.height = '0'; return; } } catch (e) {}
+  sync();
+  window.addEventListener('resize', function () { if (b.style.display !== 'none') sync(); });
+  if (x) x.addEventListener('click', hide);
+}());
+</script>
+
+
+  <a href="#main" class="skip-link">Zum Inhalt springen</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#" class="logo">Cafe Remise</a>
+      
+      <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="desktop-nav">
+        <button class="trigger-placeholder" data-title="Bistrokarte">Bistrokarte</button>
+        <a href="#mittagsmenue">Mittagsmenü</a>
+        <button class="trigger-placeholder" data-title="Reservierung">Reservierung</button>
+        <button class="trigger-placeholder" data-title="Über uns">Über uns</button>
+        <button class="trigger-placeholder" data-title="Location">Location</button>
+      </nav>
+    </div>
+  </header>
+
+  <div class="mobile-overlay" id="mobile-menu" aria-hidden="true">
+    <nav class="mobile-nav">
+      <button class="trigger-placeholder" data-title="Bistrokarte">Bistrokarte</button>
+      <a href="#mittagsmenue" class="mobile-link">Mittagsmenü</a>
+      <button class="trigger-placeholder" data-title="Reservierung">Reservierung</button>
+      <button class="trigger-placeholder" data-title="Über uns">Über uns</button>
+      <button class="trigger-placeholder" data-title="Location">Location</button>
+    </nav>
+  </div>
+
+  <main id="main">
+    
+    <section class="hero">
+      <div class="hero-content reveal">
+        <h1 class="hero-title">Herzlich willkommen im Café Remise.</h1>
+        <p class="hero-subtitle">Ihr moderner Treffpunkt in Bludenz für genussvolle Momente.</p>
+        <button class="btn trigger-placeholder" data-title="Speise- und Getränkekarte">
+          Zur Speise- und Getränkekarte <i data-lucide="arrow-right"></i>
+        </button>
+      </div>
+      <div class="hero-image-wrap reveal" style="transition-delay: 0.2s;">
+        <img src="https://www.cafe-remise.at/images/2025/03/17/remiseneu1.jpg" alt="Modernes Interieur des Cafe Remise mit blauen Samtstühlen" loading="eager">
+      </div>
+    </section>
+
+    <section id="mittagsmenue" class="lunch-section">
+      <div class="container lunch-container">
+        <div class="lunch-card reveal">
+          <span class="lunch-accent-text">schnell - guat - gnuag</span>
+          <h2 class="lunch-title">Mittagsmenü</h2>
+          <p class="lunch-desc">Montag - Donnerstag von 11:30 - 13:30 servieren wir Ihnen schmackhafte Mittagsmenüs. Wir freuen uns auf Ihren Besuch.</p>
+          
+          <div class="lunch-price-box">
+            <div class="lunch-price-main">
+              <span>Tagesgericht</span>
+              <span>€ 11,40</span>
+            </div>
+            <ul class="lunch-addons">
+              <li><span>Suppe zum Menü</span> <span>€ 2,00</span></li>
+              <li><span>Salat zum Menü</span> <span>€ 2,00</span></li>
+              <li><span>Kuchen zum Menü</span> <span>€ 2,00</span></li>
+            </ul>
+          </div>
+          
+          <button class="btn btn-outline trigger-placeholder" data-title="Aktuelles Mittagsmenü">Zum Mittagsmenü</button>
+        </div>
+        <div class="lunch-image reveal" style="transition-delay: 0.2s;">
+          <img src="https://www.cafe-remise.at/images/2025/03/17/remiseneu2.jpg" alt="Blick in den hellen Gastraum" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery-section">
+      <div class="container">
+        <div class="gallery-header reveal">
+          <h2>Unsere Räumlichkeiten</h2>
+        </div>
+        <div class="gallery-grid">
+          <div class="gallery-item reveal" style="--i: 0">
+            <img src="https://www.cafe-remise.at/images/2025/03/17/remiseneu2.jpg" alt="Blick in den hellen Gastraum" loading="lazy">
+          </div>
+          <div class="gallery-item reveal" style="--i: 1">
+            <img src="https://www.cafe-remise.at/images/2025/03/17/remiseneu3.jpg" alt="Detailaufnahme Inneneinrichtung" loading="lazy">
+          </div>
+          <div class="gallery-item reveal" style="--i: 2">
+            <img src="https://www.cafe-remise.at/images/2025/03/17/remiseneu4.jpg" alt="Sitzbereich am Fenster" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand reveal">
+          <h2>Cafe Remise</h2>
+          <p>Modern Alpine Bistro in Bludenz.</p>
+        </div>
+        
+        <div class="footer-col reveal" style="transition-delay: 0.1s;">
+          <h3>Kontakt</h3>
+          <ul class="footer-list">
+            <li>
+              <i data-lucide="map-pin"></i>
+              <span>Raiffeisenplatz 1, 6700 Bludenz</span>
+            </li>
+            <li>
+              <i data-lucide="phone"></i>
+              <span>+43 681 2055 4015</span>
+            </li>
+            <li>
+              <i data-lucide="mail"></i>
+              <span>info@cafe-remise.at</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-col reveal" style="transition-delay: 0.2s;">
+          <h3>Öffnungszeiten</h3>
+          <ul class="footer-list">
+            <li><span>Mo, Sa: 11:00 - 17:00 Uhr</span></li>
+            <li><span>Di - Do: 11:00 - 22:00 Uhr</span></li>
+            <li><span>Fr: 14:00 - 00:00 Uhr</span></li>
+            <li><span style="color: var(--color-footer-text);">So und Ft geschlossen.</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Cafe Remise — All original content, images & trademarks are property of their respective owners. Website rebuilt by Benedict Jaros.</p>
+        <div class="footer-legal-links">
+          <button class="trigger-demo">Impressum</button>
+          <button class="trigger-demo">Datenschutz</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Placeholder Modal -->
+  <div class="modal-overlay" id="placeholder-modal" aria-hidden="true" role="dialog" aria-labelledby="placeholder-title" aria-modal="true">
+    <div class="modal-card">
+      <button class="modal-close" aria-label="Schließen"><i data-lucide="x"></i></button>
+      <h3 class="modal-title" id="placeholder-title">Feature Name</h3>
+      <p class="modal-body">This feature will be live once the website is launched and configured. Contact us in the meantime — we'd love to hear from you.</p>
+      <button class="btn modal-close-btn">Schließen</button>
+    </div>
+  </div>
+
+  <!-- Demo Notice Modal -->
+  <div class="modal-overlay" id="demo-modal" aria-hidden="true" role="dialog" aria-labelledby="demo-title" aria-modal="true">
+    <div class="modal-card">
+      <button class="modal-close" aria-label="Schließen"><i data-lucide="x"></i></button>
+      <h3 class="modal-title" id="demo-title">Rechtliche Hinweise</h3>
+      <div class="modal-body">
+        <p style="margin-bottom: 1rem;">Diese Website ist ein Demo-Remake und wurde nicht von oder für das Unternehmen erstellt. Die Inhalte dienen ausschließlich Demonstrationszwecken. Für unsere eigenen rechtlichen Informationen:</p>
+        <p><a href="https://benedictjaros.com/impressum" target="_blank">Impressum</a></p>
+        <p><a href="https://benedictjaros.com/datenschutz" target="_blank">Datenschutz</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cookie Banner -->
+  <div class="cookie-banner" id="cookie-banner" role="region" aria-label="Cookie Banner">
+    <div class="cookie-text">
+      Wir verwenden Cookies, um Ihre Erfahrung zu verbessern. Durch die weitere Nutzung stimmen Sie zu.
+    </div>
+    <div class="cookie-actions">
+      <button class="btn btn-outline" id="cookie-decline">Ablehnen</button>
+      <button class="btn" id="cookie-accept">Akzeptieren</button>
+    </div>
+  </div>
+
+  <script>
+    // Initialize Icons
+    lucide.createIcons();
+
+    // Mobile Navigation Toggle
+    const navToggle = document.querySelector('.nav-toggle');
+    const mobileOverlay = document.querySelector('.mobile-overlay');
+    const mobileLinks = document.querySelectorAll('.mobile-nav a, .mobile-nav button');
+
+    function toggleMenu() {
+      const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', !isExpanded);
+      mobileOverlay.classList.toggle('is-open');
+      mobileOverlay.setAttribute('aria-hidden', isExpanded);
+      document.body.style.overflow = isExpanded ? '' : 'hidden';
+    }
+
+    navToggle.addEventListener('click', toggleMenu);
+
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (mobileOverlay.classList.contains('is-open')) toggleMenu();
+      });
+    });
+
+    // Scroll Reveal Observer
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -50px 0px" });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // Modal Logic
+    const placeholderModal = document.getElementById('placeholder-modal');
+    const demoModal = document.getElementById('demo-modal');
+    const placeholderTitle = document.getElementById('placeholder-title');
+
+    function openModal(modal) {
+      modal.classList.add('is-active');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(modal) {
+      modal.classList.remove('is-active');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    // Trigger Placeholder Modals
+    document.querySelectorAll('.trigger-placeholder').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const title = btn.getAttribute('data-title');
+        placeholderTitle.textContent = title;
+        openModal(placeholderModal);
+      });
+    });
+
+    // Trigger Demo Modals
+    document.querySelectorAll('.trigger-demo').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openModal(demoModal);
+      });
+    });
+
+    // Close Modals
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeModal(overlay);
+      });
+      
+      const closeBtns = overlay.querySelectorAll('.modal-close, .modal-close-btn');
+      closeBtns.forEach(btn => {
+        btn.addEventListener('click', () => closeModal(overlay));
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (placeholderModal.classList.contains('is-active')) closeModal(placeholderModal);
+        if (demoModal.classList.contains('is-active')) closeModal(demoModal);
+        if (mobileOverlay.classList.contains('is-open')) toggleMenu();
+      }
+    });
+
+    // Cookie Banner Logic
+    const cookieBanner = document.getElementById('cookie-banner');
+    const btnAccept = document.getElementById('cookie-accept');
+    const btnDecline = document.getElementById('cookie-decline');
+
+    if (!localStorage.getItem('cookie_consent')) {
+      setTimeout(() => {
+        cookieBanner.classList.add('is-visible');
+      }, 1000);
+    }
+
+    function handleCookieChoice(choice) {
+      localStorage.setItem('cookie_consent', choice);
+      cookieBanner.classList.remove('is-visible');
+    }
+
+    btnAccept.addEventListener('click', () => handleCookieChoice('accepted'));
+    btnDecline.addEventListener('click', () => handleCookieChoice('declined'));
+
+  </script>
+</body>
+</html>
